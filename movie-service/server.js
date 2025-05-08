@@ -7,5 +7,5 @@ connectDB();
 app.use(express.json());
 app.use('/api', routes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Service running on port ${PORT}`));
