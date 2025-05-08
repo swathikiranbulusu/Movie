@@ -31,5 +31,27 @@ app.get('/api/movies', async (req, res) => {
   }
 });
 
+// GET /api/movies/:id - Get one movie
+app.get('/api/movies/:id', async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) return res.status(404).json({ message: 'Movie not found' });
+    res.json(movie);
+  } catch (err) {
+    res.status(500).json({ message: 'Invalid ID or server error' });
+  }
+});
+
+// PUT /api/movies/:id - Update movie
+app.put('/api/movies/:id', async (req, res) => {
+  try {
+    const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!movie) return res.status(404).json({ message: 'Movie not found' });
+    res.json(movie);
+  } catch (err) {
+    res.status(500).json({ message: 'Invalid ID or server error' });
+  }
+});
+
 const PORT = 5001;
 app.listen(PORT, () => console.log(`🎬 Movie Service running on port ${PORT}`));
